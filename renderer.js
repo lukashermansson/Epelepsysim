@@ -1,41 +1,42 @@
 
-setInterval(onTimerTick, 1) // 33 milliseconds = ~ 30 frames per sec
-var isRunning = false
-var escapestate = false
+setInterval(onTimerTick, 1); // 33 milliseconds = ~ 30 frames per sec
 
-var button = document.getElementById('accept')
+let isRunning = false;
+let escapestate = false;
 
-button.addEventListener('click', clickEvent)
+const button = document.getElementById('accept');
 
-function onTimerTick () {
+button.addEventListener('click', clickEvent);
+
+function onTimerTick() {
   if (isRunning && !escapestate) {
-    document.getElementById('body').style.background = getRandomColor()
+    document.getElementById('body').style.background = getRandomColor();
   }
 }
-function getRandomColor () {
-  var letters = '0123456789ABCDEF'
-  var color = '#'
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)]
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
   }
-  return color
+  return color;
 }
 
-function clickEvent () {
-  isRunning = true
+function clickEvent() {
+  isRunning = true;
 
-  var elem = document.getElementById('warning')
-  elem.parentNode.removeChild(elem)
+  const elem = document.getElementById('warning');
+  elem.parentNode.removeChild(elem);
 }
 
-document.addEventListener('keydown', function (event) {
+document.addEventListener('keydown', (event) => {
   if (event.code === 'Escape') {
-    escapestate = !escapestate
+    escapestate = !escapestate;
   }
 
   if (escapestate) {
-    document.getElementById('escape').style.display = 'block'
+    document.getElementById('escape').style.display = 'block';
   } else {
-    document.getElementById('escape').style.display = 'none'
+    document.getElementById('escape').style.display = 'none';
   }
-})
+});

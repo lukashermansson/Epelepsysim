@@ -1,0 +1,12 @@
+{
+    "extends": "google",
+    "rules": {
+        "no-undef": 0,
+        "linebreak-style": 0,
+        "require-jsdoc": 0
+
+    },
+    "parserOptions": {
+        "ecmaVersion": 6
+      }
+}
