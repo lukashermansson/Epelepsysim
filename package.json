@@ -1,15 +1,15 @@
 {
-  "name": "Electron-Template",
-  "productName": "Electron Template",
+  "name": "Epelepsysim-Full-Color",
+  "productName": "Epelepsysim Full Color",
   "version": "1.0.0",
-  "description": "A template for electron projects",
+  "description": "An epelepsysim",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder"
   },
   "build": {
-    "appId": "me.lukashermansson.Electron-Template",
+    "appId": "me.lukashermansson.Epelepsysim-Full-Color",
     "win": {
       "target": "portable"
     }
