@@ -1,7 +1,7 @@
 const electron = require('electron');
 // Module to control application life.
 const app = electron.app;
-//const Menu = electron.Menu;
+const Menu = electron.Menu;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
@@ -18,7 +18,7 @@ function createWindow () {
     nodeIntegration: true,
   }})
 
-  //Menu.setApplicationMenu(null);
+  Menu.setApplicationMenu(null);
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
