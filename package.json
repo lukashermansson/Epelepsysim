@@ -3,7 +3,7 @@
   "productName": "Epelepsysim Full Color",
   "version": "1.0.0",
   "description": "An epelepsysim",
-  "main": "main.js",
+  "main": "app/JavaScript/main.js",
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder"
