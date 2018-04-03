@@ -15,12 +15,12 @@ let mainWindow;
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
- width: 800,
+    width: 800,
     height: 600,
     webPreferences: {
       nodeIntegration: true,
     },
- });
+  });
 
   Menu.setApplicationMenu(null);
 
@@ -36,7 +36,7 @@ function createWindow() {
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
-    mainWindow = null
+    mainWindow = null;
   });
 }
 
