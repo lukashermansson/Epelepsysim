@@ -1,0 +1,22 @@
+{
+  "name": "Electron-Template",
+  "productName": "Electron Template",
+  "version": "1.0.0",
+  "description": "A template for electron projects",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "me.lukashermansson.Electron-Template",
+    "win": {
+      "target": "portable"
+    }
+  },
+  "author": "Lukas Hermansson",
+  "license": "None",
+  "devDependencies": {
+    "electron": "^1.8.4"
+  }
+}
