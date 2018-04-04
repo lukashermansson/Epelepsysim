@@ -4,6 +4,7 @@ setInterval(onTimerTick, 1); // 33 milliseconds = ~ 30 frames per sec
 let isRunning = false;
 let escapestate = false;
 let colormode = 1;
+let timer = 0;
 
 const button = document.getElementById('accept');
 
@@ -19,13 +20,24 @@ function onTimerTick() {
     const canvas = document.getElementById('canv');
     switch (colormode) {
       case 1:
+        canvas.width = 1;
+        canvas.height = 1;
         drawOneColor(canvas);
         break;
       case 2:
+        canvas.width = window.innerWidth / 4;
+        canvas.height = window.innerHeight / 4;
         drawPixelColor(canvas);
+        break;
+      case 3:
+        canvas.width = window.innerWidth / 2;
+        canvas.height = window.innerHeight / 2;
+        drawRainbowColor(canvas);
         break;
       default:
     }
+
+    timer++;
   }
 }
 
@@ -45,10 +57,24 @@ function drawOneColor(canvas) {
   ctx.putImageData(imageData, 0, 0);
 }
 
+function drawRainbowColor(canvas) {
+  const ctx = canvas.getContext('2d');
+
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  for (let y = 0; y < ctx.canvas.height; ++y) {
+    for (let x = 0; x < ctx.canvas.width; ++x) {
+      let index = ((y * ctx.canvas.width) + x) * 4;
+
+      imageData.data[index] = 100;
+      imageData.data[++index] = (y / x * timer + timer) % 255; // green
+      imageData.data[++index] = (y * x * timer + timer) % 255; // blue
+    }
+  }
+  ctx.putImageData(imageData, 0, 0);
+}
+
 function drawPixelColor(canvas) {
   const ctx = canvas.getContext('2d');
-  ctx.canvas.width = window.innerWidth / 2;
-  ctx.canvas.height = window.innerHeight / 2;
 
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
@@ -81,6 +107,9 @@ function boxlistener() {
       break;
     case 'pixel':
       colormode = 2;
+      break;
+    case 'Rainbow':
+      colormode = 3;
       break;
     default:
       colormode = 0;
