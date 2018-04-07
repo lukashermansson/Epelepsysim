@@ -1,5 +1,5 @@
 
-setInterval(onTimerTick, 1);
+
 
 let isRunning = false;
 let escapestate = false;
@@ -14,8 +14,17 @@ const box = document.getElementById('box');
 
 box.addEventListener('change', boxlistener);
 
+function loop(timestamp) {
 
-function onTimerTick() {
+  draw();
+
+  window.requestAnimationFrame(loop);
+}
+
+
+window.requestAnimationFrame(loop)
+
+function draw() {
   if (isRunning && !escapestate) {
     const canvas = document.getElementById('canv');
     switch (colormode) {
