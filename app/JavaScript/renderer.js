@@ -3,7 +3,6 @@ let isRunning = false;
 let escapestate = false;
 let colormode = 1;
 
-let timer = 0;
 const canvas = document.getElementById('canv');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -23,47 +22,45 @@ let totalElapsedTime;
 let elapsedSinceLastLoop;
 let runningtime = 0;
 function loop(currentTime) {
-  if(!startingTime){startingTime=currentTime;}
-  if(!lastTime){lastTime=currentTime;}
-  elapsedSinceLastLoop=(currentTime-lastTime);
-  totalElapsedTime=(currentTime-startingTime);
-  lastTime=currentTime;
+  if (!startingTime) { startingTime = currentTime; }
+  if (!lastTime) { lastTime = currentTime; }
+  elapsedSinceLastLoop = (currentTime - lastTime);
+  totalElapsedTime = (currentTime - startingTime);
+  lastTime = currentTime;
 
-  if(!escapestate){
+  if (!escapestate) {
     runningtime += elapsedSinceLastLoop;
   }
   draw();
-  ctx.font = "30px Arial";
-  ctx.fillText(runningtime,10,50); 
+  ctx.font = '30px Arial';
+  ctx.fillText(runningtime, 10, 50);
 
   window.requestAnimationFrame(loop);
 }
 
 
-window.requestAnimationFrame(loop)
+window.requestAnimationFrame(loop);
 
 function draw() {
   if (isRunning && !escapestate) {
     switch (colormode) {
       case 1:
-        drawOneColor(ctx);
+        drawOneColor();
         break;
       case 2:
-        drawPixelColor(ctx);
+        drawPixelColor();
         break;
       case 3:
-        drawRainbowColor(ctx);
+        drawRainbowColor();
         break;
       default:
         break;
     }
-
-    timer++;
   }
 }
 
 
-function drawOneColor(ctx){
+function drawOneColor() {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
   const r = Math.floor(Math.random() * 255);
@@ -78,24 +75,22 @@ function drawOneColor(ctx){
   ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
 }
 
-function drawRainbowColor(ctx) {
+function drawRainbowColor() {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
   for (let y = 0; y < canvas.height; ++y) {
     for (let x = 0; x < canvas.width; ++x) {
       let index = ((y * canvas.width) + x) * 4;
 
-      imageData.data[index] = 100; //red
+      imageData.data[index] = 100; // red
       imageData.data[++index] = (y / x * runningtime + runningtime) % 255; // green
       imageData.data[++index] = (y * x * runningtime + runningtime) % 255; // blue
     }
   }
   ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
-  
 }
 
-function drawPixelColor(ctx) {
-
+function drawPixelColor() {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
   for (let i = 0; i < imageData.data.length; i += 4) {
@@ -142,12 +137,11 @@ function boxlistener() {
 document.addEventListener('keydown', (event) => {
   if (event.code === 'Escape') {
     escapestate = !escapestate;
-
   }
 
   if (escapestate) {
-    document.getElementById('escape').className += "active";
+    document.getElementById('escape').className += 'active';
   } else {
-    document.getElementById('escape').classList.remove("active");
+    document.getElementById('escape').classList.remove('active');
   }
 });
