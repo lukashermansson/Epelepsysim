@@ -1,5 +1,5 @@
 
-setInterval(onTimerTick, 1); // 33 milliseconds = ~ 30 frames per sec
+setInterval(onTimerTick, 1);
 
 let isRunning = false;
 let escapestate = false;
