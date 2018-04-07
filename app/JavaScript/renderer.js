@@ -2,9 +2,13 @@
 let isRunning = false;
 let escapestate = false;
 let colormode = 1;
+
 let timer = 0;
 const canvas = document.getElementById('canv');
+canvas.width = 1;
+canvas.height = 1;
 const ctx = canvas.getContext('2d');
+ctx.imageSmothingEnabled = false;
 const button = document.getElementById('accept');
 
 button.addEventListener('click', clickEvent);
@@ -36,6 +40,7 @@ function draw() {
         drawRainbowColor(ctx);
         break;
       default:
+        break;
     }
 
     timer++;
@@ -44,8 +49,8 @@ function draw() {
 
 
 function drawOneColor(ctx){
-
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
   const r = Math.floor(Math.random() * 255);
   const g = Math.floor(Math.random() * 255);
   const b = Math.floor(Math.random() * 255);
@@ -55,22 +60,23 @@ function drawOneColor(ctx){
     imageData.data[i + 2] = b;
     imageData.data[i + 3] = 255;
   }
-  ctx.putImageData(imageData, 0, 0);
+  ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
 }
 
 function drawRainbowColor(ctx) {
-
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
   for (let y = 0; y < canvas.height; ++y) {
     for (let x = 0; x < canvas.width; ++x) {
       let index = ((y * canvas.width) + x) * 4;
 
-      imageData.data[index] = 100;
+      imageData.data[index] = 100; //red
       imageData.data[++index] = (y / x * timer + timer) % 255; // green
       imageData.data[++index] = (y * x * timer + timer) % 255; // blue
     }
   }
-  ctx.putImageData(imageData, 0, 0);
+  ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
+  
 }
 
 function drawPixelColor(ctx) {
@@ -86,7 +92,7 @@ function drawPixelColor(ctx) {
     imageData.data[i + 2] = b;
     imageData.data[i + 3] = 255;
   }
-  ctx.putImageData(imageData, 0, 0);
+  ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
 }
 
 
@@ -107,13 +113,11 @@ function boxlistener() {
       colormode = 1;
       break;
     case 'pixel':
-      canvas.width = window.innerWidth / 4;
-      canvas.height = window.innerHeight / 4;
+      canvas.width = window.innerWidth / 2;
+      canvas.height = window.innerHeight / 2;
       colormode = 2;
       break;
     case 'Rainbow':
-      //canvas.width = window.innerWidth / 8;
-      //canvas.height = window.innerHeight / 8;
       colormode = 3;
       break;
     default:
