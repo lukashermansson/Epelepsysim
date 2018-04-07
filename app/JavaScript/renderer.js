@@ -1,11 +1,10 @@
 
-
-
 let isRunning = false;
 let escapestate = false;
 let colormode = 1;
 let timer = 0;
-
+const canvas = document.getElementById('canv');
+const ctx = canvas.getContext('2d');
 const button = document.getElementById('accept');
 
 button.addEventListener('click', clickEvent);
@@ -26,22 +25,15 @@ window.requestAnimationFrame(loop)
 
 function draw() {
   if (isRunning && !escapestate) {
-    const canvas = document.getElementById('canv');
     switch (colormode) {
       case 1:
-        canvas.width = 1;
-        canvas.height = 1;
-        drawOneColor(canvas);
+        drawOneColor(ctx);
         break;
       case 2:
-        canvas.width = window.innerWidth / 4;
-        canvas.height = window.innerHeight / 4;
-        drawPixelColor(canvas);
+        drawPixelColor(ctx);
         break;
       case 3:
-        canvas.width = window.innerWidth / 2;
-        canvas.height = window.innerHeight / 2;
-        drawRainbowColor(canvas);
+        drawRainbowColor(ctx);
         break;
       default:
     }
@@ -51,8 +43,8 @@ function draw() {
 }
 
 
-function drawOneColor(canvas) {
-  const ctx = canvas.getContext('2d');
+function drawOneColor(ctx){
+
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const r = Math.floor(Math.random() * 255);
   const g = Math.floor(Math.random() * 255);
@@ -66,13 +58,12 @@ function drawOneColor(canvas) {
   ctx.putImageData(imageData, 0, 0);
 }
 
-function drawRainbowColor(canvas) {
-  const ctx = canvas.getContext('2d');
+function drawRainbowColor(ctx) {
 
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  for (let y = 0; y < ctx.canvas.height; ++y) {
-    for (let x = 0; x < ctx.canvas.width; ++x) {
-      let index = ((y * ctx.canvas.width) + x) * 4;
+  for (let y = 0; y < canvas.height; ++y) {
+    for (let x = 0; x < canvas.width; ++x) {
+      let index = ((y * canvas.width) + x) * 4;
 
       imageData.data[index] = 100;
       imageData.data[++index] = (y / x * timer + timer) % 255; // green
@@ -82,8 +73,7 @@ function drawRainbowColor(canvas) {
   ctx.putImageData(imageData, 0, 0);
 }
 
-function drawPixelColor(canvas) {
-  const ctx = canvas.getContext('2d');
+function drawPixelColor(ctx) {
 
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
@@ -112,12 +102,18 @@ function boxlistener() {
   const select = document.getElementById('box');
   switch (select.options[select.selectedIndex].value) {
     case 'FullColor':
+      canvas.width = 1;
+      canvas.height = 1;
       colormode = 1;
       break;
     case 'pixel':
+      canvas.width = window.innerWidth / 4;
+      canvas.height = window.innerHeight / 4;
       colormode = 2;
       break;
     case 'Rainbow':
+      //canvas.width = window.innerWidth / 8;
+      //canvas.height = window.innerHeight / 8;
       colormode = 3;
       break;
     default:
