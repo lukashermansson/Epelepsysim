@@ -32,8 +32,6 @@ function loop(currentTime) {
     runningtime += elapsedSinceLastLoop;
   }
   draw();
-  ctx.font = '30px Arial';
-  ctx.fillText(runningtime, 10, 50);
 
   window.requestAnimationFrame(loop);
 }
