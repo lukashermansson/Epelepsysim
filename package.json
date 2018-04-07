@@ -1,7 +1,7 @@
 {
-  "name": "Epelepsysim-Full-Color",
-  "productName": "Epelepsysim Full Color",
-  "version": "1.0.0",
+  "name": "Epelepsysim",
+  "productName": "Epelepsysim",
+  "version": "1.1.0",
   "description": "An epelepsysim",
   "main": "app/JavaScript/main.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "dist": "electron-builder"
   },
   "build": {
-    "appId": "me.lukashermansson.Epelepsysim-Full-Color",
+    "appId": "me.lukashermansson.Epelepsysim",
     "win": {
       "target": "portable"
     }

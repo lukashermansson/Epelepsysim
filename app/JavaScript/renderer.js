@@ -51,10 +51,27 @@ function draw() {
       case 3:
         drawRainbowColor();
         break;
+      case 4:
+        drawCrosserColor();
+        break;
       default:
         break;
     }
   }
+}
+function drawCrosserColor() {
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+  for (let y = 0; y < canvas.height; ++y) {
+    for (let x = 0; x < canvas.width; ++x) {
+      let index = ((y * canvas.width) + x) * 4;
+
+      imageData.data[index] = (y * runningtime + runningtime) % 255; // red
+      imageData.data[++index] = (y / x / runningtime + runningtime) % 255; // green
+      imageData.data[++index] = (y * x * runningtime) % 255; // blue
+    }
+  }
+  ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
 }
 
 
@@ -125,6 +142,9 @@ function boxlistener() {
       break;
     case 'Rainbow':
       colormode = 3;
+      break;
+    case 'Crosser':
+      colormode = 4;
       break;
     default:
       colormode = 0;
