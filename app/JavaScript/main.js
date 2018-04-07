@@ -2,7 +2,7 @@ const electron = require('electron');
 // Module to control application life.
 const { app, Menu, BrowserWindow } = electron;
 
-
+app.disableHardwareAcceleration();
 const path = require('path');
 const url = require('url');
 
@@ -20,6 +20,7 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
+  mainWindow.webContents.setFrameRate(60);
 
   Menu.setApplicationMenu(null);
 
