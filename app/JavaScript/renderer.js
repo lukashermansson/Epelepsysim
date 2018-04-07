@@ -5,8 +5,8 @@ let colormode = 1;
 
 let timer = 0;
 const canvas = document.getElementById('canv');
-canvas.width = 1;
-canvas.height = 1;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 const ctx = canvas.getContext('2d');
 ctx.imageSmothingEnabled = false;
 const button = document.getElementById('accept');
@@ -17,9 +17,24 @@ const box = document.getElementById('box');
 
 box.addEventListener('change', boxlistener);
 
-function loop(timestamp) {
+let startingTime;
+let lastTime;
+let totalElapsedTime;
+let elapsedSinceLastLoop;
+let runningtime = 0;
+function loop(currentTime) {
+  if(!startingTime){startingTime=currentTime;}
+  if(!lastTime){lastTime=currentTime;}
+  elapsedSinceLastLoop=(currentTime-lastTime);
+  totalElapsedTime=(currentTime-startingTime);
+  lastTime=currentTime;
 
+  if(!escapestate){
+    runningtime += elapsedSinceLastLoop;
+  }
   draw();
+  ctx.font = "30px Arial";
+  ctx.fillText(runningtime,10,50); 
 
   window.requestAnimationFrame(loop);
 }
@@ -71,8 +86,8 @@ function drawRainbowColor(ctx) {
       let index = ((y * canvas.width) + x) * 4;
 
       imageData.data[index] = 100; //red
-      imageData.data[++index] = (y / x * timer + timer) % 255; // green
-      imageData.data[++index] = (y * x * timer + timer) % 255; // blue
+      imageData.data[++index] = (y / x * runningtime + runningtime) % 255; // green
+      imageData.data[++index] = (y * x * runningtime + runningtime) % 255; // blue
     }
   }
   ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
@@ -101,6 +116,8 @@ function clickEvent() {
 
   const elem = document.getElementById('warning');
   const canv = document.getElementById('canv');
+  const esc = document.getElementById('escape');
+  esc.style.display = 'block';
   canv.style.display = 'block';
   elem.parentNode.removeChild(elem);
 }
@@ -108,13 +125,9 @@ function boxlistener() {
   const select = document.getElementById('box');
   switch (select.options[select.selectedIndex].value) {
     case 'FullColor':
-      canvas.width = 1;
-      canvas.height = 1;
       colormode = 1;
       break;
     case 'pixel':
-      canvas.width = window.innerWidth / 2;
-      canvas.height = window.innerHeight / 2;
       colormode = 2;
       break;
     case 'Rainbow':
@@ -129,11 +142,12 @@ function boxlistener() {
 document.addEventListener('keydown', (event) => {
   if (event.code === 'Escape') {
     escapestate = !escapestate;
+
   }
 
   if (escapestate) {
-    document.getElementById('escape').style.display = 'block';
+    document.getElementById('escape').className += "active";
   } else {
-    document.getElementById('escape').style.display = 'none';
+    document.getElementById('escape').classList.remove("active");
   }
 });

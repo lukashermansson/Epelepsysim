@@ -2,11 +2,16 @@ body{
     padding: 0;
     width: 100%;
     overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #escape {
     z-index: 1;
     display: none; 
+    position: relative;
+        left: 0px;
+        top: -120px;
+    transition:all 0.4s ease-out;
     background-color: rgba(0, 0, 0, 0.288); 
     color: black;
     height: 80%;
@@ -17,6 +22,11 @@ body{
     margin-right: auto;
     text-align: center;
 
+}
+#escape.active{
+    display: block;
+    position: relative;
+    top: 0px;
 }
 #canv {
     display: none;
