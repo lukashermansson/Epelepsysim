@@ -149,11 +149,19 @@ function carouselClick() {
   }
   if (f !== -1) {
     if (children[f + 1] != null) {
-      children[f + 1].className += 'selected';
+      children[f + 1].className += ' selected';
       colormode++;
     } else {
-      children[0].className += 'selected';
+      children[0].className += ' selected';
       colormode = 1;
+    }
+    if (children[f] != null) {
+      children[f].className += ' prev';
+    }
+    if (children[f - 1] != null) {
+      children[f - 1].classList.remove('prev');
+    } else {
+      children[children.length - 1].classList.remove('prev');
     }
     children[f].classList.remove('selected');
   }

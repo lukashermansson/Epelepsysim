@@ -17,11 +17,37 @@ p {
     font-weight: 100;
     font-size: 15pt;
 }
+#carusel {
+    height: 40px;
+    width: 100px;
+    overflow: hidden;
+    border:0.1em solid #FFFFFF;
+    text-align: center;
+    position: relative;
+    
+
+}
+#carusel span.prev {
+    position: absolute;
+    left: -90px;
+    transition: all 0.01s;
+}
 #carusel span.selected {
-    display: inline;
+    display: block;
+    position: absolute;
+        left: 0px;
+
+}
+@keyframes opacify {
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
 }
 #carusel span {
-    display: none;
+    display: block;
+    position: absolute;
+    left: 120px;
+    transition: all 0.2s;
+
 }
 
 
