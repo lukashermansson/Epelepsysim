@@ -12,9 +12,10 @@ const button = document.getElementById('accept');
 
 button.addEventListener('click', clickEvent);
 
-const box = document.getElementById('box');
+const carusel = document.getElementById('carusel');
 
-box.addEventListener('change', boxlistener);
+carusel.addEventListener('mousedown', carouselClick);
+carusel.childNodes[1].className += 'selected';
 
 let startingTime;
 let lastTime;
@@ -131,24 +132,30 @@ function clickEvent() {
   canv.style.display = 'block';
   elem.parentNode.removeChild(elem);
 }
-function boxlistener() {
-  const select = document.getElementById('box');
-  switch (select.options[select.selectedIndex].value) {
-    case 'FullColor':
+
+function carouselClick() {
+  const unChildren = carusel.childNodes;
+  const children = new Array();
+  for (let i = 0; i < unChildren.length; i++) {
+    if (unChildren[i].nodeType === 1) {
+      children.push(unChildren[i]);
+    }
+  }
+  let f = -1;
+  for (let i = 0; i < children.length; i++) {
+    if (children[i].classList.contains('selected')) {
+      f = i;
+    }
+  }
+  if (f !== -1) {
+    if (children[f + 1] != null) {
+      children[f + 1].className += 'selected';
+      colormode++;
+    } else {
+      children[0].className += 'selected';
       colormode = 1;
-      break;
-    case 'pixel':
-      colormode = 2;
-      break;
-    case 'Rainbow':
-      colormode = 3;
-      break;
-    case 'Crosser':
-      colormode = 4;
-      break;
-    default:
-      colormode = 0;
-      break;
+    }
+    children[f].classList.remove('selected');
   }
 }
 
