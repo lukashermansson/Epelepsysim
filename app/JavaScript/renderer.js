@@ -135,7 +135,7 @@ function clickEvent() {
 
 function carouselClick() {
   const unChildren = carusel.childNodes;
-  const children = new Array();
+  const children = [];
   for (let i = 0; i < unChildren.length; i++) {
     if (unChildren[i].nodeType === 1) {
       children.push(unChildren[i]);
