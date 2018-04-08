@@ -1,22 +1,25 @@
-
 let isRunning = false;
 let escapestate = false;
 let colormode = 1;
 
+// get canvas element
 const canvas = document.getElementById('canv');
+// set height and width to window size
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+// grab the 2d context
 const ctx = canvas.getContext('2d');
-ctx.imageSmothingEnabled = false;
-const button = document.getElementById('accept');
 
+// get accept for disclaimer
+const button = document.getElementById('accept');
 button.addEventListener('click', clickEvent);
 
+// get carusel menu for draw mode
 const carusel = document.getElementById('carusel');
-
 carusel.addEventListener('mousedown', carouselClick);
 carusel.childNodes[1].className += 'selected';
 
+// Draw loop
 let startingTime;
 let lastTime;
 let totalElapsedTime;
@@ -37,11 +40,13 @@ function loop(currentTime) {
   window.requestAnimationFrame(loop);
 }
 
-
+// get the loop to start
 window.requestAnimationFrame(loop);
 
+// drawing
 function draw() {
   if (isRunning && !escapestate) {
+    // decide what color mode to draw
     switch (colormode) {
       case 1:
         drawOneColor();
@@ -60,6 +65,8 @@ function draw() {
     }
   }
 }
+
+// crossover style drawing
 function drawCrosserColor() {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
@@ -72,10 +79,11 @@ function drawCrosserColor() {
       imageData.data[++index] = (y * x * runningtime) % 255; // blue
     }
   }
+  // Update image
   ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
 }
 
-
+// One color drawing mode
 function drawOneColor() {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
@@ -88,9 +96,10 @@ function drawOneColor() {
     imageData.data[i + 2] = b;
     imageData.data[i + 3] = 255;
   }
+  // Update image
   ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
 }
-
+// Rainbow color drawing mode
 function drawRainbowColor() {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
@@ -103,9 +112,10 @@ function drawRainbowColor() {
       imageData.data[++index] = (y * x * runningtime + runningtime) % 255; // blue
     }
   }
+  // Update image
   ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
 }
-
+// Pixel color drawing mode
 function drawPixelColor() {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
@@ -121,32 +131,37 @@ function drawPixelColor() {
   ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
 }
 
-
+// click event for accept button
 function clickEvent() {
   isRunning = true;
 
   const elem = document.getElementById('warning');
+  elem.parentNode.removeChild(elem);
+
   const canv = document.getElementById('canv');
+  canv.style.display = 'block';
+
   const esc = document.getElementById('escape');
   esc.style.display = 'block';
-  canv.style.display = 'block';
-  elem.parentNode.removeChild(elem);
 }
-
+// carusel click event
 function carouselClick() {
   const unChildren = carusel.childNodes;
   const children = [];
+  // get only fist children
   for (let i = 0; i < unChildren.length; i++) {
     if (unChildren[i].nodeType === 1) {
       children.push(unChildren[i]);
     }
   }
+  // find current selected mode
   let f = -1;
   for (let i = 0; i < children.length; i++) {
     if (children[i].classList.contains('selected')) {
       f = i;
     }
   }
+  // update buttons to have the right position etc
   if (f !== -1) {
     if (children[f + 1] != null) {
       children[f + 1].className += ' selected';
@@ -166,15 +181,16 @@ function carouselClick() {
     children[f].classList.remove('selected');
   }
 }
-
+// escape listener
 document.addEventListener('keydown', (event) => {
   if (event.code === 'Escape') {
     escapestate = !escapestate;
-  }
 
-  if (escapestate) {
-    document.getElementById('escape').className += 'active';
-  } else {
-    document.getElementById('escape').classList.remove('active');
+    // change visibility depending on escapestate
+    if (escapestate) {
+      document.getElementById('escape').className += 'active';
+    } else {
+      document.getElementById('escape').classList.remove('active');
+    }
   }
 });
