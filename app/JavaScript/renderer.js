@@ -7,6 +7,11 @@ const canvas = document.getElementById('canv');
 // set height and width to window size
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
 // grab the 2d context
 const ctx = canvas.getContext('2d');
 
