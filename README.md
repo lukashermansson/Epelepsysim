@@ -8,9 +8,22 @@ To get going you want to install electron, good instructions can be found at htt
 
 ### Prerequisites
 
-No additional software needed
+*git
+*npm
 
 ### Installing
+
+clone epelepsysim:
+
+```
+git clone git@github.com:lukashermansson/Epelepsysim.git
+```
+
+Navigate to download dir:
+
+```
+cd Epelepsysim
+```
 
 Install dependencies:
 
