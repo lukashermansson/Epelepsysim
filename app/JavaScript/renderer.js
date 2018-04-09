@@ -45,7 +45,6 @@ button.addEventListener('click', clickEvent);
 
 // get carusel menu for draw mode
 carusel.addEventListener('mousedown', carouselClick);
-carusel.childNodes[1].className += 'selected';
 
 // Draw loop
 let startingTime;
@@ -97,37 +96,24 @@ function clickEvent() {
 function carouselClick() {
   const unChildren = carusel.childNodes;
   const children = [];
+  if (clolorModes.indexOf(colormode) >= clolorModes.length) {
+    colormode = clolorModes[0];
+  } else {
+    colormode = clolorModes[clolorModes.indexOf(colormode) + 1];
+  }
+  const colorIndex = clolorModes.indexOf(colormode);
   // get only fist children
   for (let i = 0; i < unChildren.length; i++) {
     if (unChildren[i].nodeType === 1) {
       children.push(unChildren[i]);
     }
   }
-  // find current selected mode
-  let f = -1;
-  for (let i = 0; i < children.length; i++) {
-    if (children[i].classList.contains('selected')) {
-      f = i;
-    }
-  }
-  // update buttons to have the right position etc
-  if (f !== -1) {
-    if (f <= clolorModes.length - 1) {
-      children[f + 1].className += ' selected';
-      colormode = clolorModes[f + 1];
-    } else {
-      children[0].className += ' selected';
-      colormode = clolorModes[0];
-    }
-    if (children[f] != null) {
-      children[f].className += ' prev';
-    }
-    if (children[f - 1] != null) {
-      children[f - 1].classList.remove('prev');
-    } else {
-      children[children.length - 1].classList.remove('prev');
-    }
-    children[f].classList.remove('selected');
+  children[colorIndex].className += 'selected';
+  if (clolorModes.indexOf(colormode) === 0) {
+
+  } else {
+    children[colorIndex - 1].classList.remove('selected');
+    children[colorIndex - 1].className += 'prev';
   }
 }
 // escape listener
@@ -147,6 +133,9 @@ document.addEventListener('keydown', (event) => {
 function populateCarusel() {
   for (let i = 0; i < clolorModes.length; i++) {
     const node = document.createElement('span');
+    if (i === 0) {
+      node.className += 'selected';
+    }
     const textnode = document.createTextNode(clolorModes[i].name);
     node.appendChild(textnode);
     carusel.appendChild(node);
