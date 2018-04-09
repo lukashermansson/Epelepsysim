@@ -8,8 +8,8 @@ To get going you want to install electron, good instructions can be found at htt
 
 ### Prerequisites
 
-*git
-*npm
+* git
+* npm
 
 ### Installing
 
