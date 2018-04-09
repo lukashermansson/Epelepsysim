@@ -73,7 +73,7 @@ window.requestAnimationFrame(loop);
 // drawing
 function draw() {
   if (isRunning && !escapestate) {
-    colormode.draw(ctx);
+    colormode.draw(ctx, runningtime);
   }
 }
 
@@ -96,7 +96,7 @@ function clickEvent() {
 function carouselClick() {
   const unChildren = carusel.childNodes;
   const children = [];
-  if (clolorModes.indexOf(colormode) >= clolorModes.length) {
+  if (clolorModes.indexOf(colormode) > clolorModes.length - 2) {
     colormode = clolorModes[0];
   } else {
     colormode = clolorModes[clolorModes.indexOf(colormode) + 1];
@@ -110,10 +110,16 @@ function carouselClick() {
   }
   children[colorIndex].className += 'selected';
   if (clolorModes.indexOf(colormode) === 0) {
-
+    children[clolorModes.length - 1].classList.remove('selected');
+    children[clolorModes.length - 2].classList.remove('prev');
+  } else if (clolorModes.indexOf(colormode) === 1) {
+    children[colorIndex - 1].classList.remove('selected');
+    children[colorIndex - 1].className += 'prev';
+    children[clolorModes.length - 1].classList.remove('prev');
   } else {
     children[colorIndex - 1].classList.remove('selected');
     children[colorIndex - 1].className += 'prev';
+    children[colorIndex - 2].classList.remove('prev');
   }
 }
 // escape listener
