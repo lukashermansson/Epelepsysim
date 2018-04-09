@@ -1,5 +1,5 @@
 {
-  "name": "Epelepsysim",
+  "name": "epelepsysim",
   "productName": "Epelepsysim",
   "version": "1.1.1",
   "description": "An epelepsysim",
@@ -14,8 +14,12 @@
       "target": "portable"
     }
   },
+  "repository" :
+  { "type" : "git"
+  , "url" : "https://github.com/lukashermansson/epelepsysim"
+  },
   "author": "Lukas Hermansson",
-  "license": "None",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^1.8.4",
     "electron-builder": "^20.8.1",
