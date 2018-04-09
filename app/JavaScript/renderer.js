@@ -1,6 +1,30 @@
+const OneColor = require('./renderingModules/OneColor');
+
+const OneColorMode = new OneColor();
+
+const Pixel = require('./renderingModules/Pixel');
+
+const PixelMode = new Pixel();
+
+const RainbowColor = require('./renderingModules/RainbowColor');
+
+const RainbowColorMode = new RainbowColor();
+
+const CrossoverColor = require('./renderingModules/CrossoverColor');
+
+const CrossoverColorMode = new CrossoverColor();
+const carusel = document.getElementById('carusel');
+
 let isRunning = false;
 let escapestate = false;
-let colormode = 1;
+let colormode = OneColorMode;
+const clolorModes = [];
+clolorModes.push(OneColorMode);
+clolorModes.push(PixelMode);
+clolorModes.push(RainbowColorMode);
+clolorModes.push(CrossoverColorMode);
+
+populateCarusel();
 
 // get canvas element
 const canvas = document.getElementById('canv');
@@ -20,7 +44,6 @@ const button = document.getElementById('accept');
 button.addEventListener('click', clickEvent);
 
 // get carusel menu for draw mode
-const carusel = document.getElementById('carusel');
 carusel.addEventListener('mousedown', carouselClick);
 carusel.childNodes[1].className += 'selected';
 
@@ -51,90 +74,10 @@ window.requestAnimationFrame(loop);
 // drawing
 function draw() {
   if (isRunning && !escapestate) {
-    // decide what color mode to draw
-    switch (colormode) {
-      case 1:
-        drawOneColor();
-        break;
-      case 2:
-        drawPixelColor();
-        break;
-      case 3:
-        drawRainbowColor();
-        break;
-      case 4:
-        drawCrosserColor();
-        break;
-      default:
-        break;
-    }
+    colormode.draw(ctx);
   }
 }
 
-// crossover style drawing
-function drawCrosserColor() {
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-  for (let y = 0; y < canvas.height; ++y) {
-    for (let x = 0; x < canvas.width; ++x) {
-      let index = ((y * canvas.width) + x) * 4;
-
-      imageData.data[index] = (y * runningtime + runningtime) % 255; // red
-      imageData.data[++index] = (y / x / runningtime + runningtime) % 255; // green
-      imageData.data[++index] = (y * x * runningtime) % 255; // blue
-    }
-  }
-  // Update image
-  ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
-}
-
-// One color drawing mode
-function drawOneColor() {
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-  const r = Math.floor(Math.random() * 255);
-  const g = Math.floor(Math.random() * 255);
-  const b = Math.floor(Math.random() * 255);
-  for (let i = 0; i < imageData.data.length; i += 4) {
-    imageData.data[i] = r;
-    imageData.data[i + 1] = g;
-    imageData.data[i + 2] = b;
-    imageData.data[i + 3] = 255;
-  }
-  // Update image
-  ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
-}
-// Rainbow color drawing mode
-function drawRainbowColor() {
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-  for (let y = 0; y < canvas.height; ++y) {
-    for (let x = 0; x < canvas.width; ++x) {
-      let index = ((y * canvas.width) + x) * 4;
-
-      imageData.data[index] = 100; // red
-      imageData.data[++index] = (y / x * runningtime + runningtime) % 255; // green
-      imageData.data[++index] = (y * x * runningtime + runningtime) % 255; // blue
-    }
-  }
-  // Update image
-  ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
-}
-// Pixel color drawing mode
-function drawPixelColor() {
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-  for (let i = 0; i < imageData.data.length; i += 4) {
-    const r = Math.floor(Math.random() * 255);
-    const g = Math.floor(Math.random() * 255);
-    const b = Math.floor(Math.random() * 255);
-    imageData.data[i] = r;
-    imageData.data[i + 1] = g;
-    imageData.data[i + 2] = b;
-    imageData.data[i + 3] = 255;
-  }
-  ctx.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
-}
 
 // click event for accept button
 function clickEvent() {
@@ -149,6 +92,7 @@ function clickEvent() {
   const esc = document.getElementById('escape');
   esc.style.display = 'block';
 }
+
 // carusel click event
 function carouselClick() {
   const unChildren = carusel.childNodes;
@@ -168,12 +112,12 @@ function carouselClick() {
   }
   // update buttons to have the right position etc
   if (f !== -1) {
-    if (children[f + 1] != null) {
+    if (f <= clolorModes.length - 1) {
       children[f + 1].className += ' selected';
-      colormode++;
+      colormode = clolorModes[f + 1];
     } else {
       children[0].className += ' selected';
-      colormode = 1;
+      colormode = clolorModes[0];
     }
     if (children[f] != null) {
       children[f].className += ' prev';
@@ -199,3 +143,12 @@ document.addEventListener('keydown', (event) => {
     }
   }
 });
+
+function populateCarusel() {
+  for (let i = 0; i < clolorModes.length; i++) {
+    const node = document.createElement('span');
+    const textnode = document.createTextNode(clolorModes[i].name);
+    node.appendChild(textnode);
+    carusel.appendChild(node);
+  }
+}
