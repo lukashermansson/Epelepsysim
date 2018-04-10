@@ -3,7 +3,7 @@
   "productName": "Epelepsysim",
   "version": "1.1.1",
   "description": "An epelepsysim",
-  "main": "app/JavaScript/main.js",
+  "main": "app/JavaScript/main.ts",
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder"
@@ -14,15 +14,15 @@
       "target": "portable"
     }
   },
-  "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/lukashermansson/epelepsysim"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lukashermansson/epelepsysim"
   },
   "author": "Lukas Hermansson",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^1.8.4",
     "electron-builder": "^20.8.1",
+    "electron-prebuilt-compile": "^1.8.4",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-google": "^0.9.1",
