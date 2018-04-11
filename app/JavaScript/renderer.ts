@@ -13,12 +13,12 @@ const RainbowColorMode = new RainbowColor();
 const CrossoverColor = require('./renderingModules/CrossoverColor');
 
 const CrossoverColorMode = new CrossoverColor();
-const carusel = document.getElementById('carusel');
+const carusel: HTMLElement = document.getElementById('carusel');
 
-let isRunning = false;
-let escapestate = false;
-let colormode = OneColorMode;
-const clolorModes = [];
+let isRunning: boolean = false;
+let escapestate: boolean = false;
+let colormode: any = OneColorMode;
+const clolorModes: any[] = [];
 clolorModes.push(OneColorMode);
 clolorModes.push(PixelMode);
 clolorModes.push(RainbowColorMode);
@@ -27,7 +27,7 @@ clolorModes.push(CrossoverColorMode);
 populateCarusel();
 
 // get canvas element
-const canvas = document.getElementById('canv');
+const canvas: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById('canv');
 // set height and width to window size
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -40,21 +40,25 @@ window.addEventListener('resize', () => {
 const ctx = canvas.getContext('2d');
 
 // get accept for disclaimer
-const button = document.getElementById('accept');
+const button: HTMLButtonElement = <HTMLButtonElement> document.getElementById('accept');
 button.addEventListener('click', clickEvent);
 
 // get carusel menu for draw mode
 carusel.addEventListener('mousedown', carouselClick);
 
 // Draw loop
-let startingTime;
-let lastTime;
-let totalElapsedTime;
-let elapsedSinceLastLoop;
-let runningtime = 0;
+let startingTime: number;
+let lastTime: number;
+let totalElapsedTime: number;
+let elapsedSinceLastLoop: number;
+let runningtime: number = 0;
 function loop(currentTime) {
-  if (!startingTime) { startingTime = currentTime; }
-  if (!lastTime) { lastTime = currentTime; }
+  if (!startingTime) { 
+    startingTime = currentTime;
+  }
+  if (!lastTime) { 
+    lastTime = currentTime;
+  }
   elapsedSinceLastLoop = (currentTime - lastTime);
   totalElapsedTime = (currentTime - startingTime);
   lastTime = currentTime;

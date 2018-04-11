@@ -1,4 +1,4 @@
-const ColorModule = require('./ColorModule');
+import { ColorModule } from './ColorModule';
 
 module.exports = class Pixel extends ColorModule {
   constructor() {

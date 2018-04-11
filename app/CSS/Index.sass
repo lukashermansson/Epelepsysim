@@ -24,16 +24,20 @@ p
   border: 0.1em solid #FFFFFF
   text-align: center
   position: relative
-
-#carusel span.prev
-  position: absolute
-  left: -90px
-  transition: all 0.01s
-
-#carusel span.selected
-  display: block
-  position: absolute
-  left: 0px
+  
+  span
+    display: block
+    position: absolute
+    left: 120px
+    transition: all 0.2s
+    &.selected
+      display: block
+      position: absolute
+      left: 0px
+    &.prev
+      position: absolute
+      left: -90px
+      transition: all 0.01s
 
 @keyframes opacify
   90%
@@ -42,11 +46,6 @@ p
   100%
     opacity: 0
 
-#carusel span
-  display: block
-  position: absolute
-  left: 120px
-  transition: all 0.2s
 
 #warning
   text-align: center
@@ -65,10 +64,9 @@ button
   background-color: rgba(0, 0, 0, 0)
   text-align: center
   transition: all 0.2s
-
-button:hover
-  color: #000000
-  background-color: #FFFFFF
+  &:hover
+    color: #000000
+    background-color: #FFFFFF
 
 #escape
   z-index: 1
@@ -87,11 +85,11 @@ button:hover
   text-align: center
   border-radius: 0.12em
   border: 0.1em solid #FFFFFF
+  &.active
+    display: block
+    position: relative
+    top: 0px
 
-#escape.active
-  display: block
-  position: relative
-  top: 0px
 
 #canv
   display: none
