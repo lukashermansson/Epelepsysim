@@ -1,14 +1,15 @@
-const electron = require('electron');
+import electron from 'electron';
 // Module to control application life.
-const { app, Menu, BrowserWindow } = electron;
+import { app, Menu, BrowserWindow } from 'electron';
+import path from 'path';
+import URL from 'url';
 
 app.disableHardwareAcceleration();
-const path = require('path');
-const url = require('url');
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+let mainWindow: BrowserWindow;
 
 function createWindow() {
   // Create the browser window.
@@ -25,7 +26,7 @@ function createWindow() {
   Menu.setApplicationMenu(null);
 
   // and load the index.html of the app.
-  mainWindow.loadURL(url.format({
+  mainWindow.loadURL(URL.format({
     pathname: path.join(__dirname, '../HTML/index.html'),
     protocol: 'file:',
     slashes: true,

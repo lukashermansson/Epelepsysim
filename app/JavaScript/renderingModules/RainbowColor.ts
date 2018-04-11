@@ -1,6 +1,6 @@
 import { ColorModule } from './ColorModule';
 
-module.exports = class RainbowColor extends ColorModule {
+export class RainbowColor extends ColorModule {
   constructor() {
     super('Rainbow');
   }

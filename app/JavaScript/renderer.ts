@@ -1,24 +1,20 @@
-const OneColor = require('./renderingModules/OneColor');
+import { OneColor } from './renderingModules/OneColor';
+import { CrossoverColor } from './renderingModules/CrossoverColor';
+import { RainbowColor } from './renderingModules/RainbowColor';
+import { Pixel } from './renderingModules/Pixel';
+import { ColorModule } from './renderingModules/ColorModule';
 
-const OneColorMode = new OneColor();
+const OneColorMode: OneColor = new OneColor();
+const PixelMode: Pixel = new Pixel();
+const RainbowColorMode: RainbowColor = new RainbowColor();
+const CrossoverColorMode: CrossoverColor = new CrossoverColor();
 
-const Pixel = require('./renderingModules/Pixel');
-
-const PixelMode = new Pixel();
-
-const RainbowColor = require('./renderingModules/RainbowColor');
-
-const RainbowColorMode = new RainbowColor();
-
-const CrossoverColor = require('./renderingModules/CrossoverColor');
-
-const CrossoverColorMode = new CrossoverColor();
 const carusel: HTMLElement = document.getElementById('carusel');
 
 let isRunning: boolean = false;
 let escapestate: boolean = false;
-let colormode: any = OneColorMode;
-const clolorModes: any[] = [];
+let colormode: ColorModule = OneColorMode;
+const clolorModes: ColorModule[] = [];
 clolorModes.push(OneColorMode);
 clolorModes.push(PixelMode);
 clolorModes.push(RainbowColorMode);
@@ -37,7 +33,7 @@ window.addEventListener('resize', () => {
   canvas.height = window.innerHeight;
 });
 // grab the 2d context
-const ctx = canvas.getContext('2d');
+const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 
 // get accept for disclaimer
 const button: HTMLButtonElement = <HTMLButtonElement> document.getElementById('accept');
