@@ -1,14 +1,18 @@
+
+  
 body
   padding: 0
   width: 100%
   overflow: hidden
   font-family: Arial, Helvetica, sans-serif
   background-color: rgb(56, 56, 56)
+  user-select: none
+  cursor: default
 
 h1
   text-decoration: none
   font-family: 'Roboto',sans-serif
-  font-weight: 150
+  font-weight: bold
   font-size: 20pt
 
 p
@@ -24,27 +28,29 @@ p
   border: 0.1em solid #FFFFFF
   text-align: center
   position: relative
-  
+  margin-left: auto
+  margin-right: auto
+  margin-bottom: 10px
   span
+    font-family: 'Roboto',sans-serif
+    font-weight: bolder
+    font-size: 13pt
     display: block
     position: absolute
     left: 120px
     transition: all 0.2s
+    top: 25%
     &.selected
       display: block
       position: absolute
       left: 0px
+      right: 0px
+      
     &.prev
       position: absolute
       left: -90px
       transition: all 0.01s
 
-@keyframes opacify
-  90%
-    opacity: 1
-
-  100%
-    opacity: 0
 
 
 #warning
@@ -71,23 +77,24 @@ button
 #escape
   z-index: 1
   display: none
-  position: relative
+  position: absolute
   left: 0px
-  top: -120px
-  transition: all 0.4s ease-out
+  right: 0px
+  top: -100%
+  transition: all 0.2s ease-out
   color: #FFFFFF
   background-color: rgba(0, 0, 0, 0.2)
-  height: 80%
   width: 50%
   max-width: 300px
   margin-left: auto
   margin-right: auto
+  margin-top: 15px
   text-align: center
   border-radius: 0.12em
   border: 0.1em solid #FFFFFF
   &.active
     display: block
-    position: relative
+    position: absolute
     top: 0px
 
 
@@ -100,3 +107,11 @@ button
   position: absolute
   top: 0
   left: 0
+
+
+  @keyframes opacify
+  90%
+    opacity: 1
+
+  100%
+    opacity: 0
