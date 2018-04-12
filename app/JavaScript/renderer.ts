@@ -142,7 +142,7 @@ function populateCarusel() {
     if (i === 0) {
       node.className += 'selected';
     }
-    const textnode = document.createTextNode(clolorModes[i].name);
+    const textnode = document.createTextNode(clolorModes[i].getName());
     node.appendChild(textnode);
     carusel.appendChild(node);
   }

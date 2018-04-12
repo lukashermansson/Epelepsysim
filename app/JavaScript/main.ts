@@ -1,8 +1,8 @@
 import electron from 'electron';
 // Module to control application life.
 import { app, Menu, BrowserWindow } from 'electron';
-import path from 'path';
-import URL from 'url';
+import * as path from 'path';
+import * as url from 'url';
 
 app.disableHardwareAcceleration();
 
@@ -26,7 +26,7 @@ function createWindow() {
   Menu.setApplicationMenu(null);
 
   // and load the index.html of the app.
-  mainWindow.loadURL(URL.format({
+  mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, '../HTML/index.html'),
     protocol: 'file:',
     slashes: true,
